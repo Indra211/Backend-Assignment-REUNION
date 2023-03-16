@@ -2,7 +2,6 @@
 
 from pathlib import Path
 from datetime import timedelta
-import django_heroku
 import dj_database_url
 import os
 
@@ -19,7 +18,7 @@ SECRET_KEY = 'django-insecure-*p9%-v+qrj_#-+(r_9df%s0*hzn%88_o^zxmr2k@+d+e=ile@1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,7 +38,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -72,19 +70,29 @@ WSGI_APPLICATION = 'social_media.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'social',
+#        'USER': 'postgres',
+#        'PASSWORD': '0012',
+#        'HOST': 'localhost',
+#        'PORT': '8000',
+#    }
+# }
+# DATABASE_URL = os.getenv('DATABASE_URL')
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# }
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'social',
-       'USER': 'postgres',
-       'PASSWORD': '0012',
-       'HOST': 'localhost',
-       'PORT': '8000',
-   }
+    'default': dj_database_url.config(
+        default='postgres://reunion:H7oWEAgC4yQg20mF0hvhBMS9LkfmlMJs@dpg-cg9fl0e4dad5p6qksuf0-a.oregon-postgres.render.com/social_ljl7',
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+
 
 
 # Password validation
@@ -122,16 +130,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-SECRET_ROOT = os.path.join(BASE_DIR,"staticfiles")
-PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-django_heroku.settings(locals())
 AUTH_USER_MODEL = "api.User"
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
