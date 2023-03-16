@@ -18,7 +18,7 @@ SECRET_KEY = 'django-insecure-*p9%-v+qrj_#-+(r_9df%s0*hzn%88_o^zxmr2k@+d+e=ile@1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://backend-reunion-r630.onrender.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
