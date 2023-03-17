@@ -7,6 +7,12 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from .models import User, Post, Like, Comment
 from .serializers import UserSerializer, PostSerializer, LikeSerializer, CommentSerializer
+from django.http import HttpResponse
+
+
+def index(request):
+    html = "WELCOME TO REUNION SERVICE"
+    return HttpResponse(html)
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
