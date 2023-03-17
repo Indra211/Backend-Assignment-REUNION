@@ -3,7 +3,7 @@ from.views import *
 
 
 urlpatterns =[
-    path("follow/<int:pk>",authenticate,name="user"),
+    path("authenticate/",authenticate_user,name="user"),
     path("follow/<int:pk>",follow_user,name="followers"),
     path('unfollow/<int:pk>/',unfollow_user,name='followers'),
     path('user/',get_user_profile,name='users'),
