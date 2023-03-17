@@ -6,7 +6,7 @@ from .manager import *
 
 class User(AbstractUser):
 
-    username=None
+    username=models.CharField(max_length=255)
     email=models.EmailField(max_length=255,unique=True)
     mobile=models.CharField(max_length=15)
 
