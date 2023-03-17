@@ -1,9 +1,12 @@
 from django.urls import path
 from.views import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    )
 
 
 urlpatterns =[
-    path("authenticate/",authenticate_user,name="user"),
+    path('authenticate/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path("follow/<int:pk>",follow_user,name="followers"),
     path('unfollow/<int:pk>/',unfollow_user,name='followers'),
     path('user/',get_user_profile,name='users'),

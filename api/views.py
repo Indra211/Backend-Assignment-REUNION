@@ -14,20 +14,6 @@ def index(request):
     html = "WELCOME TO REUNION SERVICE"
     return HttpResponse(html)
 
-jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-
-@api_view(['POST'])
-def authenticate_user(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
-    user = authenticate(email=email, password=password)
-    if user is not None:
-        payload = jwt_payload_handler(user)
-        token = jwt_encode_handler(payload)
-        return Response({'token': token})
-    else:
-        return Response({'error': 'Invalid credentials'}, status=400)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
