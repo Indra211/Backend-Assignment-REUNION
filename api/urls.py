@@ -17,4 +17,7 @@ urlpatterns =[
     path('comment/<int:pk>/',add_comment,name='comment'),
     path('posts/<int:pk>/',get_post_details,name='post_detail'),
     path('all_posts/',get_all_posts,name='posts'),
+    path('set_cookie/', set_cookie_view, name='set_cookie'),
+    path('get_cookie/', get_cookie_view, name='get_cookie'),
+    path('delete_cookie/', delete_cookie_view, name='delete_cookie'),
 ]

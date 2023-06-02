@@ -10,6 +10,30 @@ from .serializers import UserSerializer, PostSerializer, LikeSerializer, Comment
 from django.http import HttpResponse
 
 
+def set_cookie_view(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+
+        response = HttpResponse("cookies saved")
+        response.set_cookie('username', username,max_age=60)
+        return response
+    else:
+        return HttpResponse("User not authenticated.")
+        
+
+def get_cookie_view(request):
+    username = request.COOKIES.get('username') 
+    if username:
+        return HttpResponse(f"Hello, {username}!")
+    else:
+        return HttpResponse("No username cookie found.")
+    
+
+def delete_cookie_view(request):
+    response = HttpResponse("Cookie deleted successfully!")
+    response.delete_cookie('username') 
+    return response
+
 def index(request):
     html = "WELCOME TO REUNION SERVICE"
     return HttpResponse(html)
@@ -91,3 +115,12 @@ def get_all_posts(request):
     serialized_posts = PostSerializer(posts,many = True)
     return Response(serialized_posts.data)
     
+#  <li class="nav-item">
+#                         <a href="{% url 'set_cookie' %}">Set Cookie</a>
+#                     </li>
+#                     <li class="nav-item">
+#                         <a href="{% url 'get_cookie' %}">Get Cookie</a><br/>
+#                     </li>
+#                     <li class="nav-item">
+#                         <a href="{% url 'delete_cookie' %}">Delete Cookie</a><br/>                  
+#                     </li>
